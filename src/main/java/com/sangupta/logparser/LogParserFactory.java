@@ -1,5 +1,8 @@
 package com.sangupta.logparser;
 
+import com.sangupta.logparser.aem.request.AEMRequestLogParser;
+import com.sangupta.logparser.elb.ElbLogParser;
+
 /**
  * Factory class to return the right parser as needed.
  * 
@@ -15,7 +18,7 @@ public class LogParserFactory {
 		
 		switch(parserType) {
 			case Amazon_AWS_Elastic_Load_Balancer:
-				break;
+				return new ElbLogParser();
 			
 			case Apache_Access_Logs:
 				break;
@@ -28,6 +31,9 @@ public class LogParserFactory {
 			
 			case Tomcat_Access_Logs:
 				break;
+				
+			case Adobe_Experience_Manager_Request_Logs:
+				return new AEMRequestLogParser();
 
 			default:
 				break;

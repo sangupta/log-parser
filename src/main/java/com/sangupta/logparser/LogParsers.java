@@ -17,6 +17,8 @@ public enum LogParsers {
 	
 	Java_LogBack,
 	
-	Amazon_AWS_Elastic_Load_Balancer;
+	Amazon_AWS_Elastic_Load_Balancer,
+	
+	Adobe_Experience_Manager_Request_Logs;
 	
 }
