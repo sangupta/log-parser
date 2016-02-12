@@ -25,6 +25,12 @@ import com.sangupta.logparser.LogLine;
 import com.sangupta.logparser.common.HttpRequest;
 import com.sangupta.logparser.common.IPAddress;
 
+/**
+ * Represents a {@link LogLine} from Amazon ELB logs.
+ * 
+ * @author sangupta
+ *
+ */
 public class ElbLogLine extends LogLine {
 
 	public String elbName;

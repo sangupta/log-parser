@@ -21,6 +21,8 @@
 
 package com.sangupta.logparser.elb;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.TimeZone;
@@ -48,10 +50,12 @@ public class ElbLogParser implements LogParser {
 
 	private static final char SPACE = ' ';
 
-	public String readLogLine() {
-		return null;
+	@Override
+	public String readLogLine(BufferedReader reader) throws IOException {
+		return reader.readLine();
 	}
 
+	@Override
 	public LogLine parseLogLine(String logLine) {
 		if(AssertUtils.isEmpty(logLine)) {
 			return null;

@@ -21,6 +21,15 @@
 
 package com.sangupta.logparser;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+
+/**
+ * Contract for all different parsers that need to parse log files.
+ * 
+ * @author sangupta
+ *
+ */
 public interface LogParser {
 	
 	/**
@@ -29,7 +38,7 @@ public interface LogParser {
 	 * a part of the line
 	 * 
 	 */
-	public String readLogLine();
+	public String readLogLine(BufferedReader reader) throws IOException;
 
 	/**
 	 * Parse the extracted log line and return the {@link LogLine}

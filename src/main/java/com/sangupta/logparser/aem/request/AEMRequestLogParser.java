@@ -21,11 +21,12 @@
 
 package com.sangupta.logparser.aem.request;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import com.sangupta.jerry.util.AssertUtils;
-import com.sangupta.logparser.LogLine;
 import com.sangupta.logparser.LogParser;
 import com.sangupta.logparser.common.HttpRequest;
 import com.sangupta.logparser.common.HttpVerb;
@@ -40,11 +41,13 @@ import com.sangupta.logparser.common.StringTokenReader;
  */
 public class AEMRequestLogParser implements LogParser {
 
-	public String readLogLine() {
-		return null;
+	@Override
+	public String readLogLine(BufferedReader reader) throws IOException {
+		return reader.readLine();
 	}
 
-	public LogLine parseLogLine(String logLine) {
+	@Override
+	public AEMRequestLogLine parseLogLine(String logLine) {
 		if(AssertUtils.isEmpty(logLine)) {
 			return null;
 		}
@@ -113,6 +116,16 @@ public class AEMRequestLogParser implements LogParser {
 		return Long.parseLong(str);
 	}
 
+	/**
+	 * Decipher if the log line represent inbound request or outbound response
+	 * 
+	 * @param line
+	 *            the {@link AEMRequestLogLine} instance that needs to be
+	 *            updated
+	 * 
+	 * @param sign
+	 *            the sign that has been extracted from log line
+	 */
 	private void decipherInBound(AEMRequestLogLine line, String sign) {
 		if(sign == null) {
 			line.inBound = false;
