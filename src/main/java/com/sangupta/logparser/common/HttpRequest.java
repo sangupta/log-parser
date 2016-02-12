@@ -44,13 +44,13 @@ public class HttpRequest {
 		// get last space
 		int lastSpace = str.lastIndexOf(' ');
 		if(lastSpace >= 0) {
-			request.httpVersion = str.substring(lastSpace);
+			request.httpVersion = str.substring(lastSpace).trim();
 		} else {
 			lastSpace = str.length();
 		}
 		
 		// extract request
-		request.endPoint = str.substring(firstSpace, lastSpace);
+		request.endPoint = str.substring(firstSpace, lastSpace).trim();
 		
 		// done
 		return request;

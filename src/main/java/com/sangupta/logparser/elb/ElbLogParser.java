@@ -110,12 +110,4 @@ public class ElbLogParser implements LogParser {
 		return -1;
 	}
 
-	public static void main(String[] args) {
-		String line = "2015-05-22T09:11:07.207317Z TronApp-ELB 50.112.95.211:28491 10.249.64.208:8080 0.00006 0.014009 0.000026 200 200 0 0 \"HEAD https://somedomain.com/index.html HTTP/1.0\"";
-		ElbLogParser parser = new ElbLogParser();
-		LogLine logLine = parser.parseLogLine(line);
-		System.out.println(logLine);
-	}
-	
-	
 }
