@@ -2,6 +2,7 @@ package com.sangupta.logparser.elb;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.apache.commons.lang3.time.DateParser;
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -22,9 +23,9 @@ import com.sangupta.logparser.common.StringTokenReader;
  */
 public class ElbLogParser implements LogParser {
 
-	private static final char SPACE = ' ';
+	private static final DateParser SIMPLE_DATE_PARSER = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss", TimeZone.getTimeZone("UTC"));
 
-	private static final DateParser parser = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss");
+	private static final char SPACE = ' ';
 
 	public String readLogLine() {
 		return null;
@@ -95,7 +96,7 @@ public class ElbLogParser implements LogParser {
 
 	private long parseElbTimestamp(String date) {
 		try {
-			Date d = parser.parse(date);
+			Date d = SIMPLE_DATE_PARSER.parse(date);
 			
 			// read millis
 			int dot = date.indexOf('.');

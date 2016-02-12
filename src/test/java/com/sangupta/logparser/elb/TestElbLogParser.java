@@ -34,7 +34,7 @@ public class TestElbLogParser {
 		
 		ElbLogLine requestLine = (ElbLogLine) logLine;
 		
-		Assert.assertEquals(1432266067207l, requestLine.timestamp);
+		Assert.assertEquals(1432285867207l, requestLine.timestamp);
 		Assert.assertEquals(14009, requestLine.backendTime);
 		Assert.assertEquals(93, requestLine.receivedBytes);
 		Assert.assertEquals(60, requestLine.requestTime);
