@@ -37,7 +37,9 @@ public enum HttpVerb {
 	
 	PATCH,
 	
-	OPTIONS;
+	OPTIONS,
+	
+	CUSTOM;
 
 	private static final HttpVerb[] verbs = HttpVerb.values();
 
@@ -53,7 +55,7 @@ public enum HttpVerb {
 			}
 		}
 		
-		throw new IllegalArgumentException("HttpVerb is not recognized: " + str);
+		return HttpVerb.CUSTOM;
 	}
-
+	
 }

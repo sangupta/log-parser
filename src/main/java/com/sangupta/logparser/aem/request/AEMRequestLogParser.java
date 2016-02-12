@@ -89,13 +89,11 @@ public class AEMRequestLogParser implements LogParser {
 				line.statusCode = Integer.parseInt(reader.readTillNext(' '));
 			}
 			
-			if(reader.hasNext()) {
-				line.mime = reader.readTillNext(' ');
-			}
+			String remain = reader.getRemaining();
+			int space = remain.lastIndexOf(' ');
+			line.mime = remain.substring(0, space).trim();
 			
-			if(reader.hasNext()) {
-				line.processingTimeInMillis = extractTimeFromMillis(reader.getRemaining());
-			}
+			line.processingTimeInMillis = extractTimeFromMillis(remain.substring(space).trim());
 		}
 		
 		return line;
