@@ -31,10 +31,13 @@ public class StringTokenReader {
 	
 	private final String str;
 	
+	private final int length;
+	
 	private int current = 0;
 
 	public StringTokenReader(String str) {
 		this.str = str;
+		this.length = str.length();
 	}
 	
 	public boolean hasNext() {
@@ -47,7 +50,7 @@ public class StringTokenReader {
 	
 	public String readTillNext(String separator) {
 		if(!this.hasNext()) {
-			throw new IllegalStateException("No more tokens are available");
+			return null;
 		}
 		
 		int index = this.str.indexOf(separator, current);
@@ -68,4 +71,34 @@ public class StringTokenReader {
 		
 		return this.str.substring(this.current);
 	}
+
+	public String readTillNextClosing(char starting, char closing) {
+		if(!this.hasNext()) {
+			return null;
+		}
+		
+		int count = 0;
+		boolean found = false;
+		for(int index = this.current; index < this.length; index++) {
+			char c = this.str.charAt(index);
+			if(c == starting) {
+				count++;
+				found = true;
+			}
+			
+			if(c == closing) {
+				count--;
+				found = true;
+				
+				if(found && count == 0) {
+					int start = this.current;
+					this.current = index + 1;
+					return this.str.substring(start, index);
+				}
+			}
+		}
+		
+		return getRemaining();
+	}
+
 }

@@ -24,13 +24,14 @@ package com.sangupta.logparser.aem.error;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import com.sangupta.jerry.util.AssertUtils;
 import com.sangupta.jerry.util.StringUtils;
-import com.sangupta.logparser.LogLine;
 import com.sangupta.logparser.LogParser;
+import com.sangupta.logparser.common.StringTokenReader;
 
 /**
  * A {@link LogParser} implementation to parse <code>error.log</code>
@@ -123,8 +124,75 @@ public class AEMErrorLogParser implements LogParser {
 	}
 
 	@Override
-	public LogLine parseLogLine(String logLine) {
-		return null;
+	public AEMErrorLogLine parseLogLine(String logLine) {
+		if(AssertUtils.isEmpty(logLine)) {
+			return null;
+		}
+		
+		AEMErrorLogLine line = new AEMErrorLogLine();
+		StringTokenReader reader = new StringTokenReader(logLine);
+		if(reader.hasNext()) {
+			line.timestamp = parseTimeStamp(reader.readTillNext('*'));
+		}
+		
+		if(reader.hasNext()) {
+			line.level = extractLevel(reader.readTillNext('*'));
+		}
+		
+		if(reader.hasNext()) {
+			line.thread = reader.readTillNextClosing('[', ']');
+			cleanUpThreadName(line);
+		}
+		
+		if(reader.hasNext()) {
+			splitMessageAndStackTrace(line, reader.getRemaining());
+		}
+		
+		return line;
+	}
+
+	private void cleanUpThreadName(AEMErrorLogLine line) {
+		int index = line.thread.indexOf('[');
+		line.thread = line.thread.substring(index + 1).trim();
+	}
+
+	private void splitMessageAndStackTrace(AEMErrorLogLine line, String text) {
+		int index = text.indexOf('\n');
+		if(index == -1) {
+			line.message = text;
+			line.stackTrace = null;
+			return;
+		}
+		
+		line.message = text.substring(0, index).trim();
+		line.stackTrace = text.substring(index).trim();
+	}
+
+	private String extractLevel(String level) {
+		if(AssertUtils.isEmpty(level)) {
+			return null;
+		}
+		
+		level = level.trim();
+		int start = 0;
+		int end = level.length();
+		if(level.startsWith("*")) {
+			start = 1;
+		}
+		if(level.endsWith("*")) {
+			end = 1;
+		}
+		
+		return level.substring(start, end);
+	}
+
+	private long parseTimeStamp(String time) {
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss.SSS");
+		try {
+			return format.parse(time.trim()).getTime();
+		} catch (ParseException e) {
+			return -1;
+		}
 	}
 
 }
