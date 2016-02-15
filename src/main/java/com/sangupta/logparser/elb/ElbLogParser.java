@@ -56,7 +56,7 @@ public class ElbLogParser implements LogParser {
 	}
 
 	@Override
-	public LogLine parseLogLine(String logLine) {
+	public ElbLogLine parseLogLine(String logLine) {
 		if(AssertUtils.isEmpty(logLine)) {
 			return null;
 		}
