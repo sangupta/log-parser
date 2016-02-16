@@ -55,8 +55,9 @@ public class StringTokenReader {
 		
 		int index = this.str.indexOf(separator, current);
 		if(index < 0) {
+			int start = this.current;
 			this.current = str.length();
-			return this.str.substring(this.current);
+			return this.str.substring(start);
 		}
 		
 		String extracted = this.str.substring(this.current, index);
