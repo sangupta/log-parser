@@ -11,6 +11,8 @@ formats is supported:
 
 * Amazon ELB logs
 * Adobe Experience Manager Request logs
+* Adobe Experience Manager error logs
+* Sun/Oracle JDK GC logs
 
 Formats that will be supported sooner or later:
 
@@ -18,7 +20,6 @@ Formats that will be supported sooner or later:
 * logback
 * Apache httpd access logs
 * Tomcat access logs
-* Adobe Experience Manager error logs
 
 
 License
