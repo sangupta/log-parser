@@ -140,8 +140,7 @@ public class AEMErrorLogParser implements LogParser {
 		}
 		
 		if(reader.hasNext()) {
-			line.thread = reader.readTillNextClosing('[', ']');
-			cleanUpThreadName(line);
+			line.thread = reader.readBetween('[', ']');
 		}
 		
 		if(reader.hasNext()) {
@@ -149,11 +148,6 @@ public class AEMErrorLogParser implements LogParser {
 		}
 		
 		return line;
-	}
-
-	private void cleanUpThreadName(AEMErrorLogLine line) {
-		int index = line.thread.indexOf('[');
-		line.thread = line.thread.substring(index + 1).trim();
 	}
 
 	private void splitMessageAndStackTrace(AEMErrorLogLine line, String text) {

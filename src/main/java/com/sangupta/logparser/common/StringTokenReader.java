@@ -73,16 +73,21 @@ public class StringTokenReader {
 		return this.str.substring(this.current);
 	}
 
-	public String readTillNextClosing(char starting, char closing) {
+	public String readBetween(char starting, char closing) {
 		if(!this.hasNext()) {
 			return null;
 		}
 		
 		int count = 0;
+		int start = -1;
 		boolean found = false;
 		for(int index = this.current; index < this.length; index++) {
 			char c = this.str.charAt(index);
 			if(c == starting) {
+				if(!found) {
+					start = index;
+				}
+				
 				count++;
 				found = true;
 			}
@@ -92,14 +97,35 @@ public class StringTokenReader {
 				found = true;
 				
 				if(found && count == 0) {
-					int start = this.current;
 					this.current = index + 1;
-					return this.str.substring(start, index);
+					return this.str.substring(start + 1, index);
 				}
 			}
 		}
 		
 		return getRemaining();
+	}
+
+	/**
+	 * Peek the first non-white-space character available
+	 * 
+	 * @return
+	 */
+	public char peek() {
+		int start = this.current;
+		do {
+			if(start >= this.length) {
+				return 0;
+			}
+			
+			char c = this.str.charAt(start);
+			if(Character.isWhitespace(c)) {
+				start++;
+				continue;
+			}
+			
+			return c;
+		} while(true);
 	}
 
 }

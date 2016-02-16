@@ -31,7 +31,6 @@ import org.apache.commons.lang3.time.DateParser;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import com.sangupta.jerry.util.AssertUtils;
-import com.sangupta.logparser.LogLine;
 import com.sangupta.logparser.LogParser;
 import com.sangupta.logparser.common.HttpRequest;
 import com.sangupta.logparser.common.IPAddress;
