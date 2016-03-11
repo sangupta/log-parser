@@ -23,7 +23,7 @@ public class TestAEMAuditLogParser {
         
         Assert.assertNotNull(logLine);
         
-        Assert.assertEquals(1455129006073l, logLine.timestamp);
+        Assert.assertEquals(1455148806073l, logLine.timestamp);
         Assert.assertEquals(15, logLine.eventID);
         Assert.assertEquals(160528878912000l, logLine.strangeNumber);
         Assert.assertEquals("admin", logLine.user);

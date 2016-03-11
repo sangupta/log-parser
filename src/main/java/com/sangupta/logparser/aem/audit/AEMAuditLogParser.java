@@ -3,6 +3,7 @@ package com.sangupta.logparser.aem.audit;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.TimeZone;
 
 import org.apache.commons.lang3.time.FastDateFormat;
 
@@ -14,7 +15,7 @@ public class AEMAuditLogParser implements LogParser {
     
     private static final String DATE_PATTERN = "dd.MM.yyyy hh:mm:ss.SSS";
     
-    private static final FastDateFormat DATE_PARSER = FastDateFormat.getInstance(DATE_PATTERN);
+    private static final FastDateFormat DATE_PARSER = FastDateFormat.getInstance(DATE_PATTERN, TimeZone.getTimeZone("UTC"));
 
     @Override
     public String readLogLine(BufferedReader reader) throws IOException {
