@@ -40,6 +40,8 @@ public enum LogParsers {
 	
 	Amazon_AWS_Elastic_Load_Balancer,
 	
-	Adobe_Experience_Manager_Request_Logs;
+	Adobe_Experience_Manager_Request_Logs,
+	
+	Adobe_Experience_Manager_Audit_Logs;
 	
 }
