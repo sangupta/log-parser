@@ -44,6 +44,10 @@ public enum LogParsers {
 	
 	Adobe_Experience_Manager_Tar_Optimization_Logs,
 	
-	Adobe_Experience_Manager_Audit_Logs;
+	Adobe_Experience_Manager_Audit_Logs,
+    
+    Adobe_Experience_Manager_Error_Logs,
+    
+    Adobe_Experience_Manager_Replication_Logs;
 	
 }

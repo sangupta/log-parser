@@ -9,9 +9,12 @@ Log-Parser
 A simple Java libary to parse various kind of known log files. Currently parsing of the following
 formats is supported:
 
-* Amazon ELB logs
+* Amazon AWS ELB logs
+* Adobe Experience Manager Audit logs
+* Adobe Experience Manager Error logs
 * Adobe Experience Manager Request logs
-* Adobe Experience Manager error logs
+* Adobe Experience Manager Replication logs
+* Adobe Experience Manager Tar Optimization logs
 * Sun/Oracle JDK GC logs
 
 Formats that will be supported sooner or later:
