@@ -83,13 +83,11 @@ public class StringTokenReader {
 		boolean found = false;
 		for(int index = this.current; index < this.length; index++) {
 			char c = this.str.charAt(index);
-			if(c == starting) {
-				if(!found) {
-					start = index;
-				}
-				
+			if(!found && c == starting) {
 				count++;
+                start = index;
 				found = true;
+				continue;
 			}
 			
 			if(c == closing) {
@@ -103,7 +101,7 @@ public class StringTokenReader {
 			}
 		}
 		
-		return getRemaining();
+		return null;
 	}
 
 	/**
