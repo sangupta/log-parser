@@ -45,20 +45,40 @@ public class StringTokenReader {
 	}
 	
 	public String readTillNext(char separator) {
-		return this.readTillNext(String.valueOf(separator));
+		return this.readTillNext(String.valueOf(separator), 1);
+	}
+	
+	public String readTillNext(char separator, int occurence) {
+	    return this.readTillNext(String.valueOf(separator), occurence);
 	}
 	
 	public String readTillNext(String separator) {
+	    return this.readTillNext(separator, 1);
+	}
+	
+	public String readTillNext(String separator, int occurence) {
 		if(!this.hasNext()) {
 			return null;
 		}
 		
-		int index = this.str.indexOf(separator, current);
-		if(index < 0) {
-			int start = this.current;
-			this.current = str.length();
-			return this.str.substring(start);
-		}
+		int numFound = 0;
+        int index = -1;
+        int searchFrom = this.current;
+		do {
+            index = this.str.indexOf(separator, searchFrom);
+    		if(index < 0) {
+    			int start = this.current;
+    			this.current = str.length();
+    			return this.str.substring(start);
+    		}
+    		
+    		numFound++;
+    		if(numFound == occurence) {
+    		    break;
+    		}
+    		
+    		searchFrom = index + 1;
+		} while(true);
 		
 		String extracted = this.str.substring(this.current, index);
 		this.current = index + separator.length();

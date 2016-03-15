@@ -49,7 +49,7 @@ public class AEMTarOptimizationLogParser implements LogParser {
         }
         
         if(reader.hasNext()) {
-            line.clazz = reader.readBetween(' ', ' ');
+            line.clazz = reader.readTillNext(' ', 2).trim();
         }
         
         if(reader.hasNext()) {

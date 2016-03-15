@@ -9,6 +9,7 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import com.sangupta.jerry.exceptions.NotImplementedException;
 import com.sangupta.jerry.util.AssertUtils;
 import com.sangupta.logparser.LogParser;
+import com.sangupta.logparser.LogParserUtils;
 import com.sangupta.logparser.common.StringTokenReader;
 import com.sangupta.logparser.gc.JavaGarbageCollectionLogLine.GCType;
 import com.sangupta.logparser.gc.JavaGarbageCollectionLogLine.JavaGCMemoryRecord;
@@ -67,17 +68,17 @@ public class JavaGarbageCollectionLogParser implements LogParser {
 		// go to user
 		if(reader.hasNext()) {
 			reader.readTillNext("user=");
-			times.userTime = Double.parseDouble(reader.readTillNext(' '));
+			times.userTime = LogParserUtils.asDouble(reader.readTillNext(' '));
 		}
 		
 		if(reader.hasNext()) {
 			reader.readTillNext("sys=");
-			times.systemTime = Double.parseDouble(reader.readTillNext(','));
+			times.systemTime = LogParserUtils.asDouble(reader.readTillNext(','));
 		}
 		
 		if(reader.hasNext()) {
 			reader.readTillNext("real=");
-			times.realTime = Double.parseDouble(reader.readTillNext(' '));
+			times.realTime = LogParserUtils.asDouble(reader.readTillNext(' '));
 		}
 	}
 
@@ -109,7 +110,7 @@ public class JavaGarbageCollectionLogParser implements LogParser {
 
 		String record;
 		do {
-			char peeked = reader.peek();
+			char peeked = reader.peekNextNonWhitespace();
 			if(peeked == 0) {
 				break;
 			}

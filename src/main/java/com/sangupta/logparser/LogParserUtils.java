@@ -31,4 +31,17 @@ public class LogParserUtils {
         return StringUtils.getLongValue(str, defaultValue);
     }
 
+    public static double asDouble(String str) {
+        return asDouble(str, 0d);
+    }
+
+    public static double asDouble(String str, double defaultValue) {
+        if(str == null) {
+            return defaultValue;
+        }
+        
+        str = str.trim();
+        return StringUtils.getDoubleValue(str, defaultValue);
+    }
+
 }
