@@ -83,9 +83,12 @@ public class StringTokenReader {
 		boolean found = false;
 		for(int index = this.current; index < this.length; index++) {
 			char c = this.str.charAt(index);
-			if(!found && c == starting) {
+			if(c == starting) {
+                if(!found) {
+                    start = index;
+                }
+                
 				count++;
-                start = index;
 				found = true;
 				continue;
 			}
@@ -109,7 +112,7 @@ public class StringTokenReader {
 	 * 
 	 * @return
 	 */
-	public char peek() {
+	public char peekNextNonWhitespace() {
 		int start = this.current;
 		do {
 			if(start >= this.length) {

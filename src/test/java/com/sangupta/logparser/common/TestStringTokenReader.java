@@ -16,6 +16,15 @@ public class TestStringTokenReader {
         Assert.assertEquals("World", reader.readBetween('[', ']'));
         Assert.assertEquals("beautiful", reader.readBetween('[', ']'));
         Assert.assertEquals("live", reader.readBetween('[', ']'));
+        
+        // test with multiple openings
+        reader = new StringTokenReader("(this (is) (a (beautiful)) world)");
+        Assert.assertEquals("this (is) (a (beautiful)) world", reader.readBetween('(', ')'));
+        Assert.assertNull(reader.readBetween('(', ')'));
+        
+        reader = new StringTokenReader("this (is) (a (beautiful)) world");
+        Assert.assertEquals("is", reader.readBetween('(', ')'));
+        Assert.assertEquals("a (beautiful)", reader.readBetween('(', ')'));
     }
     
     @Test
