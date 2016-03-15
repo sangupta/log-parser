@@ -1,6 +1,5 @@
 /**
  *
- * log-parser: Parsers for various log formats
  * Copyright (c) 2015-2016, Sandeep Gupta
  * 
  * http://sangupta.com/projects/log-parser
@@ -22,6 +21,8 @@
 package com.sangupta.logparser;
 
 import com.sangupta.logparser.aem.audit.AEMAuditLogParser;
+import com.sangupta.logparser.aem.error.AEMErrorLogParser;
+import com.sangupta.logparser.aem.replication.AEMReplicationLogParser;
 import com.sangupta.logparser.aem.request.AEMRequestLogParser;
 import com.sangupta.logparser.aem.tar.AEMTarOptimizationLogParser;
 import com.sangupta.logparser.elb.ElbLogParser;
@@ -63,13 +64,18 @@ public class LogParserFactory {
 			    
 			case Adobe_Experience_Manager_Tar_Optimization_Logs:
 			    return new AEMTarOptimizationLogParser();
-
+			    
+			case Adobe_Experience_Manager_Error_Logs:
+			    return new AEMErrorLogParser();
+			    
+			case Adobe_Experience_Manager_Replication_Logs:
+			    return new AEMReplicationLogParser();
+			    
 			default:
-				break;
-		
+				throw new IllegalArgumentException("Unknown logfile type provided: " + parserType);
 		}
 		
-		return null;
+		throw new IllegalStateException("This code cannot be ever reached");
 	}
 	
 }
