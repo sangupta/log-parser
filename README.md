@@ -6,8 +6,8 @@ Log-Parser
 [![Maven Version](https://maven-badges.herokuapp.com/maven-central/com.sangupta/log-parser/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.sangupta/log-parser)
 
 
-A simple Java libary to parse various kind of known log files. Currently parsing of the following
-formats is supported:
+A simple Java libary to parse various kind of known log files - parsing of the following
+formats is currently supported:
 
 * Amazon AWS ELB logs
 * Adobe Experience Manager Audit logs
@@ -17,7 +17,7 @@ formats is supported:
 * Adobe Experience Manager Tar Optimization logs
 * Sun/Oracle JDK GC logs
 
-Formats that will be supported sooner or later:
+Format RoadMap:
 
 * log4j
 * logback
