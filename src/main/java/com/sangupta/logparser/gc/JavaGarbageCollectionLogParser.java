@@ -2,9 +2,6 @@ package com.sangupta.logparser.gc;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.text.ParseException;
-
-import org.apache.commons.lang3.time.FastDateFormat;
 
 import com.sangupta.jerry.exceptions.NotImplementedException;
 import com.sangupta.jerry.util.AssertUtils;
@@ -16,8 +13,8 @@ import com.sangupta.logparser.gc.JavaGarbageCollectionLogLine.JavaGCMemoryRecord
 import com.sangupta.logparser.gc.JavaGarbageCollectionLogLine.JavaGCTimes;
 
 public class JavaGarbageCollectionLogParser implements LogParser {
-	
-	private static final FastDateFormat DATE_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd'T'hh:mm:ss.SSSZ");
+    
+    private static final String DATE_PATTERN = "yyyy-MM-dd'T'hh:mm:ss.SSSZ";
 	
 	@Override
 	public String readLogLine(BufferedReader reader) throws IOException {
@@ -41,7 +38,7 @@ public class JavaGarbageCollectionLogParser implements LogParser {
 		JavaGarbageCollectionLogLine line = new JavaGarbageCollectionLogLine();
 		
 		if(reader.hasNext()) {
-			line.timestamp = parseTimestamp(reader.readTillNext(": "));
+			line.timestamp = LogParserUtils.parseIntoTime(DATE_PATTERN, reader.readTillNext(": "), -1);
 		}
 		
 		if(reader.hasNext()) {
@@ -152,14 +149,6 @@ public class JavaGarbageCollectionLogParser implements LogParser {
 		}
 		
 		throw new IllegalArgumentException("Unknown memory record name: " + name);
-	}
-
-	private long parseTimestamp(String str) {
-		try {
-			return DATE_FORMAT.parse(str).getTime();
-		} catch (ParseException e) {
-			return -1;
-		}
 	}
 
 	public static JavaGCMemoryRecord parseMemoryRecord(String str) {

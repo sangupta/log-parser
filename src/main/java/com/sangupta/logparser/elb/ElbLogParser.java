@@ -23,15 +23,10 @@ package com.sangupta.logparser.elb;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.TimeZone;
-
-import org.apache.commons.lang3.time.DateParser;
-import org.apache.commons.lang3.time.FastDateFormat;
 
 import com.sangupta.jerry.util.AssertUtils;
 import com.sangupta.logparser.LogParser;
+import com.sangupta.logparser.LogParserUtils;
 import com.sangupta.logparser.common.HttpRequest;
 import com.sangupta.logparser.common.IPAddress;
 import com.sangupta.logparser.common.StringTokenReader;
@@ -44,8 +39,8 @@ import com.sangupta.logparser.common.StringTokenReader;
  *
  */
 public class ElbLogParser implements LogParser {
-
-	private static final DateParser SIMPLE_DATE_PARSER = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss", TimeZone.getTimeZone("UTC"));
+    
+    private static final String DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss";
 
 	private static final char SPACE = ' ';
 
@@ -119,20 +114,17 @@ public class ElbLogParser implements LogParser {
 	}
 
 	private long parseElbTimestamp(String date) {
-		try {
-			Date d = SIMPLE_DATE_PARSER.parse(date);
-			
-			// read millis
-			int dot = date.indexOf('.');
-			String millisString = date.substring(dot + 1, date.length() - 1);
-			long millis = Long.parseLong(millisString) / 1000l;
-			
-			return d.getTime() + millis;
-		} catch (ParseException e) {
-			// eat up
+		long time = LogParserUtils.parseIntoTime(DATE_PATTERN, date, -1);
+		if(time < 0) {
+		    return time;
 		}
 		
-		return -1;
+		// read millis
+		int dot = date.indexOf('.');
+		String millisString = date.substring(dot + 1, date.length() - 1);
+		long millis = Long.parseLong(millisString) / 1000l;
+		
+		return time + millis;
 	}
 
 }
