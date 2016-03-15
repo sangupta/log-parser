@@ -23,6 +23,7 @@ package com.sangupta.logparser;
 
 import com.sangupta.logparser.aem.audit.AEMAuditLogParser;
 import com.sangupta.logparser.aem.request.AEMRequestLogParser;
+import com.sangupta.logparser.aem.tar.AEMTarOptimizationLogParser;
 import com.sangupta.logparser.elb.ElbLogParser;
 
 /**
@@ -59,6 +60,9 @@ public class LogParserFactory {
 				
 			case Adobe_Experience_Manager_Audit_Logs:
 			    return new AEMAuditLogParser();
+			    
+			case Adobe_Experience_Manager_Tar_Optimization_Logs:
+			    return new AEMTarOptimizationLogParser();
 
 			default:
 				break;
