@@ -23,14 +23,11 @@ package com.sangupta.logparser.aem.error;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-import org.apache.commons.lang3.time.FastDateFormat;
 
 import com.sangupta.jerry.util.AssertUtils;
 import com.sangupta.jerry.util.StringUtils;
 import com.sangupta.logparser.LogParser;
+import com.sangupta.logparser.LogParserUtils;
 import com.sangupta.logparser.common.StringTokenReader;
 
 /**
@@ -41,18 +38,15 @@ import com.sangupta.logparser.common.StringTokenReader;
  *
  */
 public class AEMErrorLogParser implements LogParser {
-	
+    
 	/**
 	 * The date pattern that is at the beginning of log files
 	 * 
 	 */
 	private static final String DATE_PATTERN = "dd.MM.yyyy";
 	
-	/**
-	 * The {@link FastDateFormat} instance for the {@link #DATE_PATTERN}
-	 */
-	private static final FastDateFormat DATE_PARSER = FastDateFormat.getInstance(DATE_PATTERN);
-	
+    private static final String DATE_TIME_PATTERN = "dd.MM.yyyy hh:mm:ss.SSS";
+    
 	/**
 	 * The last line that we are holding
 	 */
@@ -113,9 +107,8 @@ public class AEMErrorLogParser implements LogParser {
 		}
 		
 		String str = line.substring(0, DATE_PATTERN.length());
-		try {
-			DATE_PARSER.parse(str);
-		} catch (ParseException e) {
+		long parsed = LogParserUtils.parseIntoTime(DATE_PATTERN, str, -1);
+		if(parsed == -1) {
 			// not a valid date
 			return false;
 		}
@@ -132,7 +125,7 @@ public class AEMErrorLogParser implements LogParser {
 		AEMErrorLogLine line = new AEMErrorLogLine();
 		StringTokenReader reader = new StringTokenReader(logLine);
 		if(reader.hasNext()) {
-			line.timestamp = parseTimeStamp(reader.readTillNext('*'));
+			line.timestamp = LogParserUtils.parseIntoTime(DATE_TIME_PATTERN, reader.readTillNext('*'), -1);
 		}
 		
 		if(reader.hasNext()) {
@@ -178,15 +171,6 @@ public class AEMErrorLogParser implements LogParser {
 		}
 		
 		return level.substring(start, end);
-	}
-
-	private long parseTimeStamp(String time) {
-		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss.SSS");
-		try {
-			return format.parse(time.trim()).getTime();
-		} catch (ParseException e) {
-			return -1;
-		}
 	}
 
 }

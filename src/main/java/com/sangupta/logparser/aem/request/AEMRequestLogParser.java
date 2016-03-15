@@ -23,11 +23,10 @@ package com.sangupta.logparser.aem.request;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import com.sangupta.jerry.util.AssertUtils;
 import com.sangupta.logparser.LogParser;
+import com.sangupta.logparser.LogParserUtils;
 import com.sangupta.logparser.common.HttpRequest;
 import com.sangupta.logparser.common.HttpVerb;
 import com.sangupta.logparser.common.StringTokenReader;
@@ -40,6 +39,8 @@ import com.sangupta.logparser.common.StringTokenReader;
  *
  */
 public class AEMRequestLogParser implements LogParser {
+    
+    private static final String DATE_TIME_PATTERN = "dd/MMM/yyyy:hh:mm:ss Z";
 
 	@Override
 	public String readLogLine(BufferedReader reader) throws IOException {
@@ -55,7 +56,7 @@ public class AEMRequestLogParser implements LogParser {
 		AEMRequestLogLine line = new AEMRequestLogLine();
 		StringTokenReader reader = new StringTokenReader(logLine);
 		if(reader.hasNext()) {
-			line.timestamp = parseTimeStamp(reader.readTillNext('['));
+			line.timestamp = LogParserUtils.parseIntoTime(DATE_TIME_PATTERN, reader.readTillNext('['), -1);
 		}
 		
 		if(reader.hasNext()) {
@@ -149,15 +150,6 @@ public class AEMRequestLogParser implements LogParser {
 		// unknown sign
 		line.inBound = false;
 		line.outBound = false;
-	}
-
-	private long parseTimeStamp(String time) {
-		SimpleDateFormat format = new SimpleDateFormat("dd/MMM/yyyy:hh:mm:ss Z");
-		try {
-			return format.parse(time.trim()).getTime();
-		} catch (ParseException e) {
-			return -1;
-		}
 	}
 
 }
