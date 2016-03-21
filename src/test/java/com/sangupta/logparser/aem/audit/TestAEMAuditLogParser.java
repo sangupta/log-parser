@@ -25,11 +25,11 @@ public class TestAEMAuditLogParser {
         
         Assert.assertEquals(1455148806073l, logLine.timestamp);
         Assert.assertEquals(15, logLine.eventID);
-        Assert.assertEquals(160528878912000l, logLine.strangeNumber);
+        Assert.assertEquals(160528878912000l, logLine.journalRevisionID);
         Assert.assertEquals("admin", logLine.user);
         Assert.assertEquals("crx.default", logLine.workspace);
         Assert.assertEquals("/etc/cloudservices/sitecatalyst/statistics/", logLine.nodePath);
-        Assert.assertEquals(10207, logLine.randomID);
+        Assert.assertEquals(10207, logLine.sizeOfUpdate);
     }
 
 }

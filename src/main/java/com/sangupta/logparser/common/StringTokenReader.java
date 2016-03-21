@@ -87,7 +87,7 @@ public class StringTokenReader {
 
 	public String getRemaining() {
 		if(!this.hasNext()) {
-			throw new IllegalStateException("No more tokens are available");
+			return null;
 		}
 		
 		return this.str.substring(this.current);
@@ -96,6 +96,25 @@ public class StringTokenReader {
 	public String readBetween(char starting, char closing) {
 		if(!this.hasNext()) {
 			return null;
+		}
+		
+		if(starting == closing) {
+		    // this is a special case
+		    // find the two indexes
+		    int start = this.str.indexOf(starting, this.current);
+		    if(start == -1) {
+		        return null;
+		    }
+		    
+		    start++;
+		    
+		    int end = this.str.indexOf(closing, start + 1);
+		    if(end == -1) {
+		        end = this.length;
+		    }
+		    
+		    this.current = end + 1;
+		    return this.str.substring(start, end);
 		}
 		
 		int count = 0;

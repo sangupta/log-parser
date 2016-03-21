@@ -6,7 +6,7 @@ public class AEMAuditLogLine extends LogLine {
 
     public int eventID;
     
-    public long strangeNumber;
+    public long journalRevisionID;
     
     public String user;
     
@@ -14,6 +14,6 @@ public class AEMAuditLogLine extends LogLine {
     
     public String nodePath;
     
-    public int randomID;
+    public int sizeOfUpdate;
     
 }

@@ -35,7 +35,7 @@ public class AEMAuditLogParser implements LogParser {
         
         if(reader.hasNext()) {
             reader.readTillNext(' ');
-            line.strangeNumber = Long.parseLong(reader.readTillNext(' '));
+            line.journalRevisionID = Long.parseLong(reader.readTillNext(' '));
         }
         
         if(reader.hasNext()) {
@@ -48,7 +48,7 @@ public class AEMAuditLogParser implements LogParser {
         }
         
         if(reader.hasNext()) {
-            line.randomID = Integer.parseInt(reader.readBetween('(', ')'));
+            line.sizeOfUpdate = Integer.parseInt(reader.readBetween('(', ')'));
         }
         
         return line;

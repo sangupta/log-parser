@@ -26,6 +26,7 @@ import com.sangupta.logparser.aem.replication.AEMReplicationLogParser;
 import com.sangupta.logparser.aem.request.AEMRequestLogParser;
 import com.sangupta.logparser.aem.tar.AEMTarOptimizationLogParser;
 import com.sangupta.logparser.elb.ElbLogParser;
+import com.sangupta.logparser.tomcat.TomcatAccessLogParser;
 
 /**
  * Factory class to return the right parser as needed.
@@ -44,17 +45,8 @@ public class LogParserFactory {
 			case Amazon_AWS_Elastic_Load_Balancer:
 				return new ElbLogParser();
 			
-			case Apache_Access_Logs:
-				break;
-			
-			case Java_Log4j:
-				break;
-			
-			case Java_LogBack:
-				break;
-			
 			case Tomcat_Access_Logs:
-				break;
+				return new TomcatAccessLogParser();
 				
 			case Adobe_Experience_Manager_Request_Logs:
 				return new AEMRequestLogParser();
@@ -74,8 +66,6 @@ public class LogParserFactory {
 			default:
 				throw new IllegalArgumentException("Unknown logfile type provided: " + parserType);
 		}
-		
-		throw new IllegalStateException("This code cannot be ever reached");
 	}
 	
 }

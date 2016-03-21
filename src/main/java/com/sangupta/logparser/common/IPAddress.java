@@ -101,6 +101,7 @@ public class IPAddress {
 			return null;
 		}
 
+		str = str.trim();
 		int port = 0;
 		
 		int portIndex = str.indexOf(':');
