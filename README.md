@@ -5,8 +5,9 @@ Log-Parser
 [![Coverage Status](https://coveralls.io/repos/github/sangupta/log-parser/badge.svg?branch=master)](https://coveralls.io/github/sangupta/log-parser?branch=master)
 [![Maven Version](https://maven-badges.herokuapp.com/maven-central/com.sangupta/log-parser/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.sangupta/log-parser)
 
-A simple Java libary to parse various kind of known log files - parsing of the following
-formats is currently supported:
+A simple Java libary to parse various known log file formats into strongly-typed format-specific Java object. Once data is into a strongly typed object, its easier to run analysis on large files.
+
+Formats currently supported are:
 
 * Amazon AWS ELB logs
 * Adobe Experience Manager Audit logs
@@ -40,7 +41,7 @@ $ mvn clean package
 You may include the library in your Maven project by adding the following to the `pom.xml`
 
 ```xml
-  <repositories>
+	<repositories>
 		<repository>
 		    <id>jitpack.io</id>
 		    <url>https://jitpack.io</url>
