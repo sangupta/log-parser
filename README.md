@@ -5,7 +5,6 @@ Log-Parser
 [![Coverage Status](https://coveralls.io/repos/github/sangupta/log-parser/badge.svg?branch=master)](https://coveralls.io/github/sangupta/log-parser?branch=master)
 [![Maven Version](https://maven-badges.herokuapp.com/maven-central/com.sangupta/log-parser/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.sangupta/log-parser)
 
-
 A simple Java libary to parse various kind of known log files - parsing of the following
 formats is currently supported:
 
@@ -16,14 +15,44 @@ formats is currently supported:
 * Adobe Experience Manager Replication logs
 * Adobe Experience Manager Tar Optimization logs
 * Sun/Oracle JDK GC logs
+* Tomcat access logs (default format)
 
-Format RoadMap:
+### RoadMap
+
+The following log formats shall be added to the library next:
 
 * log4j
 * logback
 * Apache httpd access logs
-* Tomcat access logs
 
+### Building
+
+Building the library is very simple.
+
+```shell
+$ git clone git@github.com:sangupta/log-parser.git
+$ cd log-parser
+$ mvn clean package
+```
+
+### Downloading
+
+You may include the library in your Maven project by adding the following to the `pom.xml`
+
+```xml
+  <repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+	
+	<dependency>
+	    <groupId>com.github.sangupta</groupId>
+	    <artifactId>log-parser</artifactId>
+	    <version>-SNAPSHOT</version>
+	</dependency>
+```
 
 License
 -------
