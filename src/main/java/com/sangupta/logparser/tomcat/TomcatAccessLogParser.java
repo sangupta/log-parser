@@ -3,12 +3,12 @@ package com.sangupta.logparser.tomcat;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import com.sangupta.jerry.io.AdvancedStringReader;
 import com.sangupta.jerry.util.AssertUtils;
 import com.sangupta.logparser.LogParser;
 import com.sangupta.logparser.LogParserUtils;
 import com.sangupta.logparser.common.HttpRequest;
 import com.sangupta.logparser.common.IPAddress;
-import com.sangupta.logparser.common.StringTokenReader;
 
 public class TomcatAccessLogParser implements LogParser {
     
@@ -27,7 +27,7 @@ public class TomcatAccessLogParser implements LogParser {
         
         TomcatAccessLogLine line = new TomcatAccessLogLine();
         
-        StringTokenReader reader = new StringTokenReader(logLine);
+        AdvancedStringReader reader = new AdvancedStringReader(logLine);
         if(reader.hasNext()) {
             line.clientIP = IPAddress.fromString(reader.readTillNext('-'));
         }
@@ -41,7 +41,7 @@ public class TomcatAccessLogParser implements LogParser {
         }
         
         line.statusCode = LogParserUtils.asInt(reader.readTillNext(' ', 2));
-        line.responseSize = LogParserUtils.asInt(reader.getRemaining(), 0);
+        line.responseSize = LogParserUtils.asInt(reader.readRemaining(), 0);
         
         return line;
     }

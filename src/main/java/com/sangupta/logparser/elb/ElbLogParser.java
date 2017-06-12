@@ -24,12 +24,12 @@ package com.sangupta.logparser.elb;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import com.sangupta.jerry.io.AdvancedStringReader;
 import com.sangupta.jerry.util.AssertUtils;
 import com.sangupta.logparser.LogParser;
 import com.sangupta.logparser.LogParserUtils;
 import com.sangupta.logparser.common.HttpRequest;
 import com.sangupta.logparser.common.IPAddress;
-import com.sangupta.logparser.common.StringTokenReader;
 
 /**
  * A {@link LogParser} implementation for Amazon AWS Elastic-Load-Balancer
@@ -57,7 +57,7 @@ public class ElbLogParser implements LogParser {
 		
 		ElbLogLine elbLogLine = new ElbLogLine();
 		
-		StringTokenReader reader = new StringTokenReader(logLine);
+		AdvancedStringReader reader = new AdvancedStringReader(logLine);
 		if(reader.hasNext()) {
 			elbLogLine.timestamp = parseElbTimestamp(reader.readTillNext(SPACE));
 		}
@@ -102,7 +102,7 @@ public class ElbLogParser implements LogParser {
 			elbLogLine.sentBytes = Long.parseLong(reader.readTillNext(SPACE));
 		}
 		
-		elbLogLine.request = HttpRequest.fromString(reader.getRemaining());
+		elbLogLine.request = HttpRequest.fromString(reader.readRemaining());
 		
 		return elbLogLine;
 	}

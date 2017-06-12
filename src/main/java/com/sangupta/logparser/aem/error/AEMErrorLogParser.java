@@ -24,11 +24,11 @@ package com.sangupta.logparser.aem.error;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import com.sangupta.jerry.io.AdvancedStringReader;
 import com.sangupta.jerry.util.AssertUtils;
 import com.sangupta.jerry.util.StringUtils;
 import com.sangupta.logparser.LogParser;
 import com.sangupta.logparser.LogParserUtils;
-import com.sangupta.logparser.common.StringTokenReader;
 
 /**
  * A {@link LogParser} implementation to parse <code>error.log</code>
@@ -123,7 +123,7 @@ public class AEMErrorLogParser implements LogParser {
 		}
 		
 		AEMErrorLogLine line = new AEMErrorLogLine();
-		StringTokenReader reader = new StringTokenReader(logLine);
+		AdvancedStringReader reader = new AdvancedStringReader(logLine);
 		if(reader.hasNext()) {
 			line.timestamp = LogParserUtils.parseIntoTime(DATE_TIME_PATTERN, reader.readTillNext('*'), -1);
 		}
@@ -137,7 +137,7 @@ public class AEMErrorLogParser implements LogParser {
 		}
 		
 		if(reader.hasNext()) {
-			splitMessageAndStackTrace(line, reader.getRemaining());
+			splitMessageAndStackTrace(line, reader.readRemaining());
 		}
 		
 		return line;

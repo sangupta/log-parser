@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 import com.sangupta.jerry.exceptions.NotImplementedException;
+import com.sangupta.jerry.io.AdvancedStringReader;
 import com.sangupta.jerry.util.AssertUtils;
 import com.sangupta.logparser.LogParser;
 import com.sangupta.logparser.LogParserUtils;
-import com.sangupta.logparser.common.StringTokenReader;
 import com.sangupta.logparser.gc.JavaGarbageCollectionLogLine.GCType;
 import com.sangupta.logparser.gc.JavaGarbageCollectionLogLine.JavaGCMemoryRecord;
 import com.sangupta.logparser.gc.JavaGarbageCollectionLogLine.JavaGCTimes;
@@ -34,7 +34,7 @@ public class JavaGarbageCollectionLogParser implements LogParser {
 		}
 		
 		// start parsing
-		StringTokenReader reader = new StringTokenReader(logLine);
+		AdvancedStringReader reader = new AdvancedStringReader(logLine);
 		JavaGarbageCollectionLogLine line = new JavaGarbageCollectionLogLine();
 		
 		if(reader.hasNext()) {
@@ -60,7 +60,7 @@ public class JavaGarbageCollectionLogParser implements LogParser {
 		JavaGCTimes times = new JavaGCTimes();
 		line.times = times;
 		
-		StringTokenReader reader = new StringTokenReader(str);
+		AdvancedStringReader reader = new AdvancedStringReader(str);
 		
 		// go to user
 		if(reader.hasNext()) {
@@ -103,7 +103,7 @@ public class JavaGarbageCollectionLogParser implements LogParser {
 			throw new IllegalArgumentException("Unknown GC Type");
 		}
 		
-		StringTokenReader reader = new StringTokenReader(str);
+		AdvancedStringReader reader = new AdvancedStringReader(str);
 
 		String record;
 		do {

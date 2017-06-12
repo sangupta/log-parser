@@ -3,10 +3,10 @@ package com.sangupta.logparser.aem.audit;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import com.sangupta.jerry.io.AdvancedStringReader;
 import com.sangupta.jerry.util.AssertUtils;
 import com.sangupta.logparser.LogParser;
 import com.sangupta.logparser.LogParserUtils;
-import com.sangupta.logparser.common.StringTokenReader;
 
 public class AEMAuditLogParser implements LogParser {
     
@@ -24,7 +24,7 @@ public class AEMAuditLogParser implements LogParser {
         }
         
         AEMAuditLogLine line = new AEMAuditLogLine();
-        StringTokenReader reader = new StringTokenReader(logLine);
+        AdvancedStringReader reader = new AdvancedStringReader(logLine);
         if(reader.hasNext()) {
             line.timestamp = LogParserUtils.parseIntoTime(DATE_PATTERN, reader.readTillNext('['), -1);
         }

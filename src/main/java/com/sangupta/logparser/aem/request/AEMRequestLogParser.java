@@ -24,12 +24,12 @@ package com.sangupta.logparser.aem.request;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import com.sangupta.jerry.io.AdvancedStringReader;
 import com.sangupta.jerry.util.AssertUtils;
 import com.sangupta.logparser.LogParser;
 import com.sangupta.logparser.LogParserUtils;
 import com.sangupta.logparser.common.HttpRequest;
 import com.sangupta.logparser.common.HttpVerb;
-import com.sangupta.logparser.common.StringTokenReader;
 
 /**
  * A {@link LogParser} that can be used to parse <code>request.log</code> files
@@ -54,7 +54,7 @@ public class AEMRequestLogParser implements LogParser {
 		}
 		
 		AEMRequestLogLine line = new AEMRequestLogLine();
-		StringTokenReader reader = new StringTokenReader(logLine);
+		AdvancedStringReader reader = new AdvancedStringReader(logLine);
 		if(reader.hasNext()) {
 			line.timestamp = LogParserUtils.parseIntoTime(DATE_TIME_PATTERN, reader.readTillNext('['), -1);
 		}
@@ -84,7 +84,7 @@ public class AEMRequestLogParser implements LogParser {
 			}
 			
 			if(reader.hasNext()) {
-				line.request.httpVersion = reader.getRemaining();
+				line.request.httpVersion = reader.readRemaining();
 			}
 		}
 		
@@ -93,7 +93,7 @@ public class AEMRequestLogParser implements LogParser {
 				line.statusCode = Integer.parseInt(reader.readTillNext(' '));
 			}
 			
-			String remain = reader.getRemaining();
+			String remain = reader.readRemaining();
 			int space = remain.lastIndexOf(' ');
 			line.mime = remain.substring(0, space).trim();
 			
