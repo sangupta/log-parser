@@ -7,7 +7,6 @@ import org.junit.Test;
 
 public class TestCharlesSessionXML {
 
-	@Test
 	public void testCharlesSessionXML() throws Exception {
 		String file = FileUtils.readFileToString(new File("/Users/sangupta/Desktop/charles-files/charles-session.xml"));
 		CharlesSession session = CharlesSessionXmlLogParser.parse(file);
