@@ -20,6 +20,7 @@ Formats currently supported are:
 * Adobe Experience Manager Tar Optimization logs
 * Sun/Oracle JDK GC logs
 * Apache Tomcat access logs (default format)
+* Charles Proxy Summary/Session XML (requires `XStream` XML parser)
 
 ### RoadMap
 
