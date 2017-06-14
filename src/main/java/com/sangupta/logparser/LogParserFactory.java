@@ -1,6 +1,7 @@
 /**
  *
- * Copyright (c) 2015-2016, Sandeep Gupta
+ * log-parser: Parsers for various log formats
+ * Copyright (c) 2015-2017, Sandeep Gupta
  * 
  * http://sangupta.com/projects/log-parser
  * 
